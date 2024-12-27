@@ -12,7 +12,8 @@ builder.AddContainer("Mail", "mailhog/mailhog")
     .WithEndpoint(port: 1025, targetPort: 1025, name: "smtp");
 
 builder.AddProject<Projects.AspireTesting>(Constants.ApiResourceName)
-    .WithReference(database);
+    .WithReference(database)
+    .WaitFor(database);
 
 builder.Build().Run();
 

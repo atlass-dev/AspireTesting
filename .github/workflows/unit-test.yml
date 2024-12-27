@@ -23,11 +23,5 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Install Aspire
-      run: dotnet workload install aspire
-
-    - name: Restore dependencies
-      run: dotnet restore
-
     - name: Unit Tests
-      run: dotnet test AspireTesting.sln --filter Category!=Integration --verbosity normal --configuration Release
+      run: dotnet test AspireTesting.Tests --verbosity normal --configuration Release

@@ -5,7 +5,7 @@ namespace AspireTesting;
 
 public class AppDbContext : DbContext
 {
-    public AppDbContext(DbContextOptions options)
+    public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
         

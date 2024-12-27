@@ -12,6 +12,7 @@ builder.AddServiceDefaults();
 
 var databaseConnectionString = configuration.GetConnectionString("AppDatabase");
 
+builder.Services.AddScoped<AppDbContext>();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(
@@ -20,7 +21,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     );
 });
 builder.Services.AddAsyncInitializer<DatabaseInitializer>();
-
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -44,4 +44,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.InitAndRunAsync();

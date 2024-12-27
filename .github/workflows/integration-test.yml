@@ -25,13 +25,10 @@ jobs:
     - name: Install Aspire Workload
       run: dotnet workload install aspire
 
-    - name: View files
-      run: ls -la
-
     - name: App Settings Variable Substitution
       uses: microsoft/variable-substitution@v1
       with:
-        files: '${{env.DOTNET_ROOT}}/AspireTesting/AspireTesting/appsettings.json'
+        files: 'AspireTesting/appsettings.json'
       env:
         ConnectionStrings:AppDatabase: ${{ secrets.CONNECTIONSTRINGS_APPDATABASE }}
 

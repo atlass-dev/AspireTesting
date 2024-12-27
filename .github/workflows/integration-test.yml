@@ -29,9 +29,6 @@ jobs:
           --health-retries 5
 
     steps:
-    - name: Check Podman
-      run: podman version
-
     - name: Setup dotnet
       uses: actions/setup-dotnet@v1
       with:

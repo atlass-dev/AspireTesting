@@ -50,7 +50,7 @@ jobs:
         ConnectionStrings.AppDatabase: ${{ secrets.CONNECTIONSTRINGS_APPDATABASE }}
 
     - name: Install sudo package
-      run: apt update && apt install sudo
+      run: sudo apt update && sudo apt install sudo
 
     - name: Install Podman
       run: sudo apt-get update && \

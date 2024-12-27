@@ -11,7 +11,7 @@ builder.AddContainer("Mail", "mailhog/mailhog")
     .WithEndpoint(port: 8025, targetPort: 8025, name: "web", scheme: "http")
     .WithEndpoint(port: 1025, targetPort: 1025, name: "smtp");
 
-builder.AddProject<Projects.AspireTesting>(Constants.ApiRespourceName)
+builder.AddProject<Projects.AspireTesting>(Constants.ApiResourceName)
     .WithReference(database);
 
 builder.Build().Run();
@@ -34,7 +34,7 @@ IResourceBuilder<PostgresServerResource> SetupData(string[] args,
 
 public class Constants 
 {
-    public const string ApiRespourceName = "aspire-testing";
+    public const string ApiResourceName = "aspire-testing";
 
     public const string IntegrationTest = "IntegrationTest";
 }

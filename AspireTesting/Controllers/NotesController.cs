@@ -16,19 +16,19 @@ public class NotesController : ControllerBase
         this.dbContext = dbContext;
     }
 
-    [HttpGet]
+    [HttpGet, EndpointName("GetAllNotes")]
     public async Task<IEnumerable<Note>> GetNotes()
     {
         return await dbContext.Notes.ToListAsync();
     }
 
-    [HttpGet("id")]
+    [HttpGet("id"), EndpointName("GetNoteById")]
     public async Task<Note> GetNote(int id)
     {
         return await dbContext.Notes.GetAsync(note => note.Id == id);
     }
 
-    [HttpPost]
+    [HttpPost, EndpointName("CreateNote")]
     public async Task<int> AddNote([FromBody] Note note)
     {
         dbContext.Notes.Add(note);

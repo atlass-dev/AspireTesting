@@ -1,8 +1,26 @@
+using AspireTesting;
+using AspireTesting.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 builder.AddServiceDefaults();
 
 // Add services to the container.
+
+var databaseConnectionString = configuration.GetConnectionString("AppDatabase");
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseNpgsql(
+            databaseConnectionString,
+            sqlOptions => sqlOptions.MigrationsAssembly(typeof(AppDbContext).Assembly.GetName().Name)
+    );
+});
+builder.Services.AddAsyncInitializer<DatabaseInitializer>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

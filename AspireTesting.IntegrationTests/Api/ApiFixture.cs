@@ -1,4 +1,5 @@
-﻿using AspireTesting.IntegrationTests.Abstractions;
+﻿using Aspire.Hosting;
+using AspireTesting.IntegrationTests.Abstractions;
 using AspireTesting.IntegrationTests.Implementations;
 
 namespace AspireTesting.IntegrationTests.Api;

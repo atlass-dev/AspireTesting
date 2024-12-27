@@ -22,5 +22,8 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Restore dependencies
+      run: dotnet restore
+
     - name: Tests
       run: dotnet test AspireTesting.sln --verbosity normal --configuration Release

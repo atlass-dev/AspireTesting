@@ -23,5 +23,8 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Restore dependencies
+      run: dotnet restore
+
     - name: Unit Tests
       run: dotnet test AspireTesting.sln --filter Category!=Integration --verbosity normal --configuration Release

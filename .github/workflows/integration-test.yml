@@ -30,7 +30,7 @@ jobs:
       with:
         files: 'AspireTesting/appsettings.json'
       env:
-        ConnectionStrings:AppDatabase: ${{ secrets.CONNECTIONSTRINGS_APPDATABASE }}
+        ConnectionStrings.AppDatabase: ${{ secrets.CONNECTIONSTRINGS_APPDATABASE }}
 
     - name: Tests
       run: dotnet test AspireTesting.sln --verbosity normal --configuration Release

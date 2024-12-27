@@ -49,9 +49,12 @@ jobs:
       env:
         ConnectionStrings.AppDatabase: ${{ secrets.CONNECTIONSTRINGS_APPDATABASE }}
 
+    - name: Install sudo package
+      run: apt update && apt install sudo
+
     - name: Install Podman
-      run: apt-get update && \
-           apt-get -y install podman && \
+      run: sudo apt-get update && \
+           sudo apt-get -y install podman && \
            podman version
 
     - name: Tests

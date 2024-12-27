@@ -52,5 +52,8 @@ jobs:
       env:
         ConnectionStrings.AppDatabase: ${{ secrets.CONNECTIONSTRINGS_APPDATABASE }}
 
+    - name: Generate SSL Certificate
+      run: dotnet dev-certs https --clean && dotnet dev-certs https --trust
+
     - name: Tests
       run: dotnet test AspireTesting.sln --verbosity normal --configuration Release

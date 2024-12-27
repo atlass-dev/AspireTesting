@@ -8,5 +8,5 @@ public class Note
 
     public DateTime CreatedAt { get; set; }
 
-    public DateTime RemovedAt { get; set; }
+    public DateTime? RemovedAt { get; set; }
 }

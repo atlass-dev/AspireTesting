@@ -1,6 +1,7 @@
 using AspireTesting;
 using AspireTesting.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ var databaseConnectionString = configuration.GetConnectionString("AppDatabase");
 builder.Services.AddScoped<AppDbContext>();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
+    options.ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning));
     options.UseNpgsql(
             databaseConnectionString,
             sqlOptions => sqlOptions.MigrationsAssembly(typeof(AppDbContext).Assembly.GetName().Name)

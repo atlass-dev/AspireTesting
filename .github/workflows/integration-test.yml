@@ -50,7 +50,9 @@ jobs:
         ConnectionStrings.AppDatabase: ${{ secrets.CONNECTIONSTRINGS_APPDATABASE }}
 
     - name: Install Podman
-      uses: gacts/install-podman@v1
+      run: sudo apt-get update \
+           sudo apt-get -y install podman
+           podman version
 
     - name: Tests
       run: dotnet test AspireTesting.sln --verbosity normal --configuration Release

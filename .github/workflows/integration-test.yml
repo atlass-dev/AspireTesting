@@ -29,9 +29,6 @@ jobs:
           --health-retries 5
 
     steps:
-    - name: Check Docker
-      run: docker version
-
     - name: Setup dotnet
       uses: actions/setup-dotnet@v1
       with:
@@ -51,6 +48,9 @@ jobs:
         files: 'AspireTesting/appsettings.json'
       env:
         ConnectionStrings.AppDatabase: ${{ secrets.CONNECTIONSTRINGS_APPDATABASE }}
+
+    - name: Install Podman
+      uses: gacts/install-podman@v1
 
     - name: Tests
       run: dotnet test AspireTesting.sln --verbosity normal --configuration Release

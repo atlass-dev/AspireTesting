@@ -29,6 +29,9 @@ jobs:
           --health-retries 5
 
     steps:
+    - name: Check Podman
+      run: podman version
+
     - name: Setup dotnet
       uses: actions/setup-dotnet@v1
       with:
@@ -48,14 +51,6 @@ jobs:
         files: 'AspireTesting/appsettings.json'
       env:
         ConnectionStrings.AppDatabase: ${{ secrets.CONNECTIONSTRINGS_APPDATABASE }}
-
-    - name: Install sudo package
-      run: sudo apt update && sudo apt install sudo
-
-    - name: Install Podman
-      run: sudo apt-get update && \
-           sudo apt-get -y install podman && \
-           podman version
 
     - name: Tests
       run: dotnet test AspireTesting.sln --verbosity normal --configuration Release

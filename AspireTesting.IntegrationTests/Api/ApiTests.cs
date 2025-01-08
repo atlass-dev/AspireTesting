@@ -8,7 +8,7 @@
         {
             var note = await fixture.ApiClient.GetNoteByIdAsync(1);
 
-            Assert.Equal("First Note", note.Text);
+            Assert.Equal("First Note1", note.Text);
         }
     }
 }

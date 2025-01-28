@@ -7,5 +7,5 @@ public class SmtpConfig
     public string Password { get; set; } = string.Empty;
     public string Username { get; set; } = string.Empty;
     public bool UseSsl { get; set; }
-    public string FromAddress { get; set; } = MailHogResource.DefaultAddressFrom;
+    public string FromAddress { get; set; } = string.Empty;
 }

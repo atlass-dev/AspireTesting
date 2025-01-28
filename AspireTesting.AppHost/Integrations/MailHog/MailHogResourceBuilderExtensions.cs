@@ -2,6 +2,14 @@
 
 public static class MailHogResourceBuilderExtensions
 {
+    internal const int DefaultHttpPort = 8025;
+    internal const int DefaultSmtpPort = 1025;
+
+    internal const string SmtpEndpointName = "smtp";
+    internal const string HttpEndpointName = "http";
+
+    internal const string DefaultAddressFrom = "smtp@example.com";
+
     public static IResourceBuilder<MailHogResource> AddMailHog(
         this IDistributedApplicationBuilder builder,
         string name)
@@ -13,13 +21,13 @@ public static class MailHogResourceBuilderExtensions
 
         return mailhog
             .WithPorts()
-            .FromAddress(MailHogResource.DefaultAddressFrom);
+            .FromAddress(DefaultAddressFrom);
     }
 
     public static IResourceBuilder<MailHogResource> WithPorts(
         this IResourceBuilder<MailHogResource> builder,
-        int httpPort = MailHogResource.DefaultHttpPort,
-        int smtpPort = MailHogResource.DefaultSmtpPort)
+        int httpPort = DefaultHttpPort,
+        int smtpPort = DefaultSmtpPort)
     {
         builder.Resource.TryGetAnnotationsOfType<EndpointAnnotation>(out var endpoints);
 
@@ -32,14 +40,14 @@ public static class MailHogResourceBuilderExtensions
         }
 
         builder
-            .WithEndpoint(targetPort: MailHogResource.DefaultHttpPort, 
+            .WithEndpoint(targetPort: DefaultHttpPort, 
                 port: httpPort, 
-                scheme: MailHogResource.HttpEndpointName,
-                name: MailHogResource.HttpEndpointName)
-            .WithEndpoint(targetPort: MailHogResource.DefaultSmtpPort, 
+                scheme: HttpEndpointName,
+                name: HttpEndpointName)
+            .WithEndpoint(targetPort: DefaultSmtpPort, 
                 port: smtpPort, 
-                scheme: MailHogResource.SmtpEndpointName,
-                name: MailHogResource.SmtpEndpointName);
+                scheme: SmtpEndpointName,
+                name: SmtpEndpointName);
 
         return builder;
     }
@@ -63,7 +71,7 @@ public static class MailHogResourceBuilderExtensions
         this IResourceBuilder<TDestination> builder, IResourceBuilder<MailHogResource> source)
         where TDestination : IResourceWithEnvironment
     {
-        var endpoint = source.GetEndpoint(MailHogResource.SmtpEndpointName);
+        var endpoint = source.GetEndpoint(SmtpEndpointName);
 
         // Enter the context to access endpoint.
         builder.WithEnvironment(context =>

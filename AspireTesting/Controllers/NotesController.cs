@@ -11,12 +11,10 @@ namespace AspireTesting.Controllers;
 public class NotesController : ControllerBase
 {
     private readonly AppDbContext dbContext;
-    private readonly SmtpSettings smtpSettings;
 
-    public NotesController(AppDbContext dbContext, IOptions<SmtpSettings> smtpSettings)
+    public NotesController(AppDbContext dbContext)
     {
         this.dbContext = dbContext;
-        this.smtpSettings = smtpSettings.Value;
     }
 
     [HttpGet, EndpointName("GetAllNotes")]

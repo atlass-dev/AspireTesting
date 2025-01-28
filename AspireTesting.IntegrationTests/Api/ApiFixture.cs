@@ -51,11 +51,11 @@ public sealed class ApiFixture : IAsyncLifetime
     private ApiClient InitializeClient(IDistributedApplicationTestingBuilder appHost)
     {
         var apiResource = appHost.Resources
-                    .FirstOrDefault(resource => resource.Name == Constants.ApiResourceName);
+            .FirstOrDefault(resource => resource.Name == Constants.ApiResourceName);
         apiResource.TryGetAnnotationsOfType<EndpointAnnotation>(out var annotations);
 
         var apiEndpointAnnotation = annotations.First();
-        var apiBaseUrl = $"https://{apiEndpointAnnotation.AllocatedEndpoint.Address}:{apiEndpointAnnotation.Port}";
+        var apiBaseUrl = $"https://{apiEndpointAnnotation.TargetHost}:{apiEndpointAnnotation.Port}";
 
         return new ApiClient(apiBaseUrl, app.CreateHttpClient(Constants.ApiResourceName));
     }

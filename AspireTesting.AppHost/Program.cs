@@ -1,3 +1,5 @@
+using AspireTesting.AppHost.Integrations.MailHog;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 var databaseConfiguration = builder.AddPostgres(name: "database", port: 5433)
@@ -7,12 +9,14 @@ databaseConfiguration = SetupData(args, databaseConfiguration);
 
 var database = databaseConfiguration.AddDatabase(name: "AppDatabase", databaseName: "Testing");
 
-builder.AddContainer("Mail", "mailhog/mailhog")
-    .WithEndpoint(port: 8025, targetPort: 8025, name: "web", scheme: "http")
-    .WithEndpoint(port: 1025, targetPort: 1025, name: "smtp");
+var mailhog = builder.AddMailHog("Smtp")
+    //.WithPorts(httpPort: 8025, smtpPort: 1025)
+    .FromAddress("test@example.com")
+    .UseSsl();
 
 builder.AddProject<Projects.AspireTesting>(Constants.ApiResourceName)
     .WithReference(database)
+    .WithReference(mailhog)
     .WaitFor(database);
 
 builder.Build().Run();

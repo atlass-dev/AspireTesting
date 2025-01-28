@@ -1,8 +1,8 @@
 using AspireTesting;
 using AspireTesting.Infrastructure;
+using AspireTesting.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -12,6 +12,8 @@ builder.AddServiceDefaults();
 // Add services to the container.
 
 var databaseConnectionString = configuration.GetConnectionString("AppDatabase");
+
+builder.Services.Configure<SmtpSettings>(configuration.GetSection("Smtp"));
 
 builder.Services.AddScoped<AppDbContext>();
 builder.Services.AddDbContext<AppDbContext>(options =>

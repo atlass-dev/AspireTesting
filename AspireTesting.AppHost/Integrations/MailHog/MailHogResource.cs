@@ -1,8 +1,9 @@
-﻿using System.Text.Json;
+﻿using Aspire.Hosting.ApplicationModel;
+using System.Text.Json;
 
 namespace AspireTesting.AppHost.Integrations.MailHog;
 
-public class MailHogResource : ContainerResource, IResourceWithConnectionString
+public class MailHogResource : ContainerResource, IResourceWithServiceDiscovery
 {
     internal const int DefaultHttpPort = 8025;
     internal const int DefaultSmtpPort = 1025;
@@ -16,22 +17,11 @@ public class MailHogResource : ContainerResource, IResourceWithConnectionString
 
     private EndpointReference? _smtpReference;
 
-    private EndpointReference SmtpEndpoint =>
+    internal EndpointReference SmtpEndpoint =>
         _smtpReference ??= new EndpointReference(this, SmtpEndpointName);
 
     public MailHogResource(string name) : base(name)
     {
         SmtpConfig = new();
     }
-
-    public ReferenceExpression ConnectionStringExpression
-    {
-        get
-        {
-            SmtpConfig.Host = SmtpEndpoint.Host;
-            SmtpConfig.Port = SmtpEndpoint.Port;
-            return ReferenceExpression.Create($"{JsonSerializer.Serialize(SmtpConfig)}");
-        }
-    }
-
 }

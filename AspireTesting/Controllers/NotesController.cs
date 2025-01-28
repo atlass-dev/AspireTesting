@@ -1,6 +1,7 @@
 using AspireTesting.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Saritasa.Tools.EntityFrameworkCore;
 
 namespace AspireTesting.Controllers;
@@ -10,10 +11,12 @@ namespace AspireTesting.Controllers;
 public class NotesController : ControllerBase
 {
     private readonly AppDbContext dbContext;
+    private readonly SmtpSettings smtpSettings;
 
-    public NotesController(AppDbContext dbContext)
+    public NotesController(AppDbContext dbContext, IOptions<SmtpSettings> smtpSettings)
     {
         this.dbContext = dbContext;
+        this.smtpSettings = smtpSettings.Value;
     }
 
     [HttpGet, EndpointName("GetAllNotes")]

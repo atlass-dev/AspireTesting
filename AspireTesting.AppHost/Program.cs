@@ -17,7 +17,8 @@ var mailhog = builder.AddMailHog("Smtp")
 builder.AddProject<Projects.AspireTesting>(Constants.ApiResourceName)
     .WithReference(database)
     .WithReference(mailhog)
-    .WaitFor(database);
+    .WaitFor(database)
+    .WaitFor(mailhog);
 
 builder.Build().Run();
 

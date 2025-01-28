@@ -21,6 +21,16 @@ public static class MailHogResourceBuilderExtensions
         int httpPort = MailHogResource.DefaultHttpPort,
         int smtpPort = MailHogResource.DefaultSmtpPort)
     {
+        builder.Resource.TryGetAnnotationsOfType<EndpointAnnotation>(out var endpoints);
+
+        if (endpoints != null && endpoints.Any())
+        {
+            foreach (var endpoint in endpoints)
+            {
+                builder.Resource.Annotations.Remove(endpoint);
+            }
+        }
+
         builder
             .WithEndpoint(targetPort: MailHogResource.DefaultHttpPort, 
                 port: httpPort, 

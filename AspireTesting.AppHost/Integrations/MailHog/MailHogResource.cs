@@ -1,6 +1,6 @@
 ﻿namespace AspireTesting.AppHost.Integrations.MailHog;
 
-public class MailHogResource : ContainerResource, IResourceWithServiceDiscovery
+public class MailHogResource : ContainerResource
 {
     internal SmtpConfig SmtpConfig { get; }
 

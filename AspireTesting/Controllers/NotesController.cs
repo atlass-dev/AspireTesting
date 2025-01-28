@@ -32,6 +32,7 @@ public class NotesController : ControllerBase
     [HttpPost, EndpointName("CreateNote")]
     public async Task<int> AddNote([FromBody] Note note)
     {
+        note.CreatedAt = DateTime.UtcNow;
         dbContext.Notes.Add(note);
         await dbContext.SaveChangesAsync();
 

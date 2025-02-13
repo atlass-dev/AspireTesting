@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AspireTesting.Client\AspireTesting.Client.csproj" />
     <ProjectReference Include="..\AspireTesting\AspireTesting.csproj" />
   </ItemGroup>
 

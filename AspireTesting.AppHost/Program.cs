@@ -14,11 +14,14 @@ var mailhog = builder.AddMailHog("Smtp")
     .FromAddress("test@example.com")
     .UseSsl();
 
-builder.AddProject<Projects.AspireTesting>(Constants.ApiResourceName)
+var api = builder.AddProject<Projects.AspireTesting>(Constants.ApiResourceName)
     .WithReference(database)
     .WithReference(mailhog)
     .WaitFor(database)
     .WaitFor(mailhog);
+
+var frontend = builder.AddProject<Projects.AspireTesting_Client>("frontend")
+    .WithReference(api);
 
 builder.Build().Run();
 
@@ -40,7 +43,7 @@ IResourceBuilder<PostgresServerResource> SetupData(string[] args,
 
 public class Constants 
 {
-    public const string ApiResourceName = "aspire-testing";
+    public const string ApiResourceName = "api";
 
     public const string IntegrationTest = "IntegrationTest";
 }
